@@ -58,8 +58,8 @@ export function scss() {
 }
 
 
-const mode = process.env.NODE_ENV === 'development' ? webpackConfigDev : webpackConfigProd;
 export function js() {
+  const mode = process.env.NODE_ENV === 'development' ? webpackConfigDev : webpackConfigProd;
   return plugins.plumber({
     errorHandler: plugins.notify.onError("Error: <%= error.message %>"),
   })
@@ -67,10 +67,10 @@ export function js() {
   .pipe(dest(paths.js.dest));
 }
 
-
 export function images() {
+  const mode = process.env.NODE_ENV === 'production' ? true : false;
   return src(paths.images.src)
-  .pipe(plugins.imagemin([
+  .pipe(plugins.if(mode,plugins.imagemin([
     plugins.imagemin.mozjpeg({
       quality: [ 0.65, 0.8 ],
       speed: 1
@@ -78,7 +78,7 @@ export function images() {
     plugins.imagemin.optipng({
       quality: 80
     }),    
-  ]))
+  ])))
   .pipe(dest(paths.images.dest))
 }
 

@@ -11,7 +11,7 @@ const del = require('del')
 
 const paths = {
   ejs: {
-    src:'./src/**/*.ejs',
+    src:['./src/**/*.ejs','!./src/**/_*.ejs'],
     dest:'./public/'
   },
   scss: {
@@ -28,13 +28,21 @@ const paths = {
   }  
 }
 
-function scss() {
+export function ejs() {
+  return src(paths.ejs.src)
+  .pipe(plugins.ejs())
+  .pipe(plugins.rename({extname:'.html'}))
+  .pipe(dest(paths.ejs.dest))
+}
+
+export function scss() {
   return src(paths.scss.src,{
     sourcemaps: true
   })
   .pipe(plugins.plumber({ 
     errorHandler: plugins.notify.onError("Error: <%= error.message %>") 
   }))
+  .pipe(plugins.sassGlob())
   .pipe(plugins.sass({
     outputStyle: 'expanded'
   }))
@@ -49,10 +57,9 @@ function scss() {
   }));  
 }
 
-exports.scss = scss;
 
 const mode = process.env.NODE_ENV === 'development' ? webpackConfigDev : webpackConfigProd;
-function js() {
+export function js() {
   return plugins.plumber({
     errorHandler: plugins.notify.onError("Error: <%= error.message %>"),
   })
@@ -60,9 +67,8 @@ function js() {
   .pipe(dest(paths.js.dest));
 }
 
-exports.js = js;
 
-function images() {
+export function images() {
   return src(paths.images.src)
   .pipe(plugins.imagemin([
     plugins.imagemin.mozjpeg({
@@ -76,10 +82,9 @@ function images() {
   .pipe(dest(paths.images.dest))
 }
 
-exports.images = images;
 
 
-function server(done) {
+export function server(done) {
   browserSync.init({
     server: {
       baseDir: 'public/',
@@ -90,24 +95,22 @@ function server(done) {
   done();
 }
 
-exports.server = server;
 
-function clean() {
+export function clean() {
   return del(['public/**', '!public'])
 }
 
-exports.clean = clean;
 
-function watchTask(done) {
+export function watchTask(done) {
   watch(paths.scss.src,parallel(scss))
+  watch(paths.ejs.src,parallel(ejs))
   watch(paths.js.src,parallel(js))
   watch(paths.images.src,parallel(images))
   done();
 }
 
-exports.watchTask = watchTask;
 
-export const dev = series(clean,parallel(scss,images,js),server,watchTask)
-export const prod = series(clean,parallel(scss,images,js))
+export const dev = series(clean,parallel(ejs,scss,images,js),server,watchTask)
+export const prod = series(clean,parallel(ejs,scss,images,js))
 
 export default dev

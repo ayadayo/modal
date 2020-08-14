@@ -29,7 +29,7 @@ const paths = {
 }
 
 function scss() {
-  return gulp.src(paths.scss.src,{
+  return src(paths.scss.src,{
     sourcemaps: true
   })
   .pipe(plugins.plumber({ 
@@ -44,7 +44,7 @@ function scss() {
       grid: true 
     }),
   ]))
-  .pipe(gulp.dest(paths.scss.dest,{
+  .pipe(dest(paths.scss.dest,{
     sourcemaps: '.'
   }));  
 }
@@ -57,13 +57,13 @@ function js() {
     errorHandler: plugins.notify.onError("Error: <%= error.message %>"),
   })
   .pipe(webpackStream(mode,webpack))
-  .pipe(gulp.dest(paths.js.dest));
+  .pipe(dest(paths.js.dest));
 }
 
 exports.js = js;
 
 function images() {
-  return gulp.src(paths.images.src)
+  return src(paths.images.src)
   .pipe(plugins.imagemin([
     plugins.imagemin.mozjpeg({
       quality: [ 0.65, 0.8 ],
@@ -73,7 +73,7 @@ function images() {
       quality: 80
     }),    
   ]))
-  .pipe(gulp.dest(paths.images.dest))
+  .pipe(dest(paths.images.dest))
 }
 
 exports.images = images;
@@ -99,15 +99,15 @@ function clean() {
 exports.clean = clean;
 
 function watchTask(done) {
-  gulp.watch(paths.scss.src,gulp.parallel(scss))
-  gulp.watch(paths.js.src,gulp.parallel(js))
-  gulp.watch(paths.images.src,gulp.parallel(images))
+  watch(paths.scss.src,parallel(scss))
+  watch(paths.js.src,parallel(js))
+  watch(paths.images.src,parallel(images))
   done();
 }
 
 exports.watchTask = watchTask;
 
-export const dev = gulp.series(clean,gulp.parallel(scss,images,js),server,watchTask)
-export const prod = gulp.series(clean,gulp.parallel(scss,images,js))
+export const dev = series(clean,parallel(scss,images,js),server,watchTask)
+export const prod = series(clean,parallel(scss,images,js))
 
 export default dev

@@ -4,9 +4,40 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
   <%- include('./include/_header'); %>
-  <p>あああ</p>
+  <div class="l-wrapper" style="padding-bottom:100px;">
+    この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大きさ、量、字間、行間等を確認するために入れています。この文章はダミーです。文字の大き
+    <div style="margin-top:1000px;">
+      A商品についての説明は<button class="js-modal-open c-modal-open" data-modal="modal01">こちらから</button>
+      B商品についての説明は<button class="js-modal-open c-modal-open" data-modal="modal02">こちらから</button>       
+    </div>
+    <div class="c-modal-wrapper js-modal-item" id="modal01" aria-hidden="false">
+      <div class="c-modal-inner js-modal-height">
+        <div class="js-modal-close c-modal-overlay"></div>
+        <div class="c-modal-item">
+          <button class="js-modal-close c-modal-close">×</button>
+          <div class="c-modal-item__container">
+            <h2>A商品についての説明</h2>
+            <p style="margin-top:500px;">テストテスト</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="c-modal-wrapper js-modal-item" id="modal02" aria-hidden="true">
+      <div class="c-modal-inner js-modal-height">
+        <div class="js-modal-close c-modal-overlay"></div>
+        <div class="c-modal-item">
+          <button class="js-modal-close c-modal-close">×</button>
+          <div class="c-modal-item__container">
+            <h2>B商品についての説明</h2>
+          </div>
+        </div>        
+      </div>
+    </div>
+  </div>
+  <script src="assets/js/app.js"></script>
 </body>
 </html>

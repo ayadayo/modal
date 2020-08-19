@@ -19,7 +19,7 @@ const paths = {
     dest:'./public/assets/css/'
   },  
   js: {
-    src:'./src/assets/css/**/*.js',
+    src:'./src/assets/js/**/*.js',
     dest:'./public/assets/js/'
   },
   images: {

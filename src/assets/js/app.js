@@ -2,9 +2,12 @@
 
   const modalTriggers = document.querySelectorAll('.js-modal-open');
   const modalItems = document.querySelectorAll('.js-modal-item');
+  const body = document.querySelector('body');
+
   let isActive = false;
   modalTriggers.forEach(modalTrigger => {
-    modalTrigger.addEventListener('click', event => {    
+    modalTrigger.addEventListener('click', event => { 
+      console.log(window.pageYOffset);   
       modalItems.forEach(modalItem => {
         modalItem.setAttribute('aria-hidden','true');
       });
@@ -28,7 +31,7 @@
         modalItem.setAttribute('aria-hidden','true');
         isActive = false;
         fixedBackground();
-      }); 
+      });
     })
   });
 
@@ -52,15 +55,19 @@
         console.log('small');
         modal.style.maxHeight = testmodal + 'px';
       });      
-      // modal.style.maxHeight = modalHeight + 'px';
     }
   }
 
 
   function fixedBackground() {
+    // const scroll = window.pageYOffset;
+    const scroll = window.pageYOffset;
     if(isActive) {
-      document.querySelector('body').classList.add('-is-fixed');
+      body.classList.add('-is-fixed');
+      body.style.top = `-${scroll}px`;
     } else {
-      document.querySelector('body').classList.remove('-is-fixed');
+      const bodyStyleTop =  parseInt(body.style.top,10) * -1;
+      window.scrollTo(0,`${bodyStyleTop}`);
+      body.classList.remove('-is-fixed');
     }
   }
